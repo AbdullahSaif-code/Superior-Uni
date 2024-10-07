@@ -61,7 +61,7 @@ Once the project is set up and running, users can access the following features:
 - Generating reports for administrative purposes
 - Monitoring student progress
 
-Be sure to review the configuration files to customize settings based on your institution's specific requirements.
+Review the configuration files to customize settings based on your institution's specific requirements.
 
 ## Contributing
 
@@ -75,7 +75,7 @@ Contributions to the project are welcome. To contribute:
 
 ## License
 
-This project is licensed under the MIT License. Refer to the [LICENSE](URL_4) file for detailed information.
+This project is licensed under the CC0 License.
 
 ## Contact
 
@@ -83,4 +83,4 @@ For inquiries or suggestions, please feel free to contact:
 
 - **Name**: Abdullah Saif
 - **GitHub**: [@AbdullahaSaif](URL_5)
-- **Phone | Whatsapp**: +92 3154389728
+- **Phone | Whatsapp**: +923154389728
