@@ -70,8 +70,15 @@ Open a pull request.
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 **Contact**
+
 For any questions or suggestions, feel free to reach out:
+
 Name: Abdullah Saif
+
 GitHub: @AbdullahaSaif
-Phone: +92 3154389728   Whatsapp: +92 3154389728 (Recomanded)
+
+Phone: +92 3154389728
+
+Whatsapp: +92 3154389728 (Recomanded)
+
 Mail: abdullahasaif001@gmail.com
