@@ -6,7 +6,7 @@ class Passwor_App:
             if length >= 10:
                 break
             else:
-                print("Try again! Password length is less than 10.")
+                print("Password length is less than 10.")
 
         chars = input("Special characters? (yes/no): ").lower() == 'yes'
         
