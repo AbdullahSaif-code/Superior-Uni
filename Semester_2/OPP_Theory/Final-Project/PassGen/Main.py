@@ -44,16 +44,16 @@ def main():
                 print(f"Time of Generation: {password_data['time_of_generation']}")
                 print(f"Original Password: {password_data['original_password']}")
             else:
-                print("No password found for the given label.")
+                print("No password found.")
 
         # Delete saved password
         elif choice == "3":
-            label = input("Enter the label of the password to delete: ")
+            label = input("Enter the label to delete: ")
             deleted = file_handler.delete_password(label)
             if deleted:
-                print(f"Password with label '{label}' deleted successfully.")
+                print(f"Password '{label}' deleted successfully.")
             else:
-                print("No password found for the given label.")
+                print("No password found.")
 
         # List all saved password
         elif choice == "4":
@@ -69,15 +69,15 @@ def main():
         elif choice == "5":
             csv_file_name = "passwords.csv"
             if os.path.exists(csv_file_name):
-                print(f"Opening {csv_file_name} in the default application...")
+                print(f"Opening {csv_file_name}")
                 os.startfile(csv_file_name)
             else:
-                print("No CSV file found. Please generate and save a password first.")
+                print("No CSV file found.")
 
 
         # Make backup copy of password
         elif choice == "6":
-            export_file_name = input("Enter the name of the backup file (e.g., backup.csv): ")
+            export_file_name = input("Enter the name of the backup file:")
             file_handler.export_passwords(export_file_name)
             print(f"Passwords have been exported to {export_file_name}.")
 
@@ -86,7 +86,7 @@ def main():
             print("Exiting Password Manager.")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice.")
 #  To run Main function
 if __name__ == "__main__":
     main()
