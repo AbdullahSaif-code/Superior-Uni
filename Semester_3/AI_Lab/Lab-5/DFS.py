@@ -17,20 +17,18 @@ graph = {
     '8': []
 }
 
-visited = []
-stack = []
-
 def dfs(graph, start, goal):
-    stack.append(start)
+    visited = set()
+    stack = [start]
+    
     while stack:
         node = stack.pop()
         if node not in visited:
             print(node, end=" ")
-            visited.append(node)
+            visited.add(node)
             if node == goal:
                 break
-            for neighbour in graph[node]:
-                stack.append(neighbour)
+            stack.extend(graph[node][::-1])  # Add neighbors in reverse order to maintain correct order
 
 print("DFS")
-dfs(graph, '5', '3')
+dfs(graph, '5', '8')
