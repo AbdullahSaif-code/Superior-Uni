@@ -1,22 +1,19 @@
-class Reflex_Agents:
+class ReflexAgent:
     def __init__(self, required_temp):
         self.required_temp = required_temp
-        self.previous_action = None
+        self.history = {}
 
-    def perceive(self, current_temp):
-        return current_temp
-
-    def act(self, current_temp):
+    def act(self, room_name, current_temp):
         if current_temp < self.required_temp:
             action = "Turn on heater"
         else:
             action = "Turn off heater"
         
-        if action == self.previous_action:
-            return "No change"
-        
-        self.previous_action = action
+        self.history[room_name] = action
         return action
+
+    def get_history(self):
+        return self.history
 
 def user_temp():
     rooms = {}
@@ -26,7 +23,6 @@ def user_temp():
         room_name = input("Enter room name: ")
         room_temp = float(input(f"Enter current temperature for {room_name}: "))
         rooms[room_name] = room_temp
-        i += 1    
     return rooms
 
 def main():
@@ -35,12 +31,16 @@ def main():
     required_temp = float(input("Enter the required temperature for rooms (°C): "))
     
     rooms = user_temp()
-    agent = Reflex_Agents(required_temp)
+    agent = ReflexAgent(required_temp)
 
     print("\nRunning the AI for each room...\n")
     
     for room, temperature in rooms.items():
-        action = agent.act(temperature)
+        action = agent.act(room, temperature)
         print(f"{room}: Current temperature = {temperature}°C. {action}.")
-        
+    
+    print("\nAction history:")
+    for room, action in agent.get_history().items():
+        print(f"{room}: {action}")
+
 main()
