@@ -14,7 +14,7 @@ class ToDoList:
     def add_task(self, description, priority):
         if priority in [1, 2, 3]:
             self.tasks.append(Task(description, priority))
-            self.tasks = sorted(self.tasks, key=lambda x: x.priority)
+            self.tasks = sorted(self.tasks, key=lambda x: x.priority)  # Lamda function is used to provide small anomyas feature.
             print("Task added.")
         else:
             print("Invalid priority.")
@@ -51,4 +51,4 @@ class ToDoList:
             else:
                 print("Invalid choice.")
 
-ToDoList().run()
+ToDoList().run() # Calling class and than function short hand stecture same as used in pandas asnd numpy.
