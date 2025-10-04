@@ -34,7 +34,7 @@ To deploy the project locally, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone URL_3
+   git clone https://github.com/AbdullahSaif-code/Superior-Uni.git
    ```
 
 2. **Navigate to the project directory**:
@@ -82,5 +82,5 @@ This project is licensed under the CC0 License.
 For inquiries or suggestions, please feel free to contact:
 
 - **Name**: Abdullah Saif
-- **GitHub**: [@AbdullahaSaif](URL_5)
+- **GitHub**: [@AbdullahaSaif](https://github.com/AbdullahSaif-code)
 - **Phone | Whatsapp**: +923154389728
