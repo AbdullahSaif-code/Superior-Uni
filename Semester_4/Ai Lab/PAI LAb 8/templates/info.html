@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-900 to-indigo-900 shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center space-x-3">
+                    <i class="fas fa-film text-3xl text-purple-400"></i>
+                    <h1 class="text-2xl font-bold">Movie Info App</h1>
+                </a>
+                <a href="/" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Movie Details Section -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+            <div class="md:flex">
+                <!-- Movie Poster -->
+                <div class="md:w-1/3">
+                    <img id="moviePoster" src="" alt="Movie Poster" class="w-full h-auto object-cover">
+                </div>
+                
+                <!-- Movie Info -->
+                <div class="md:w-2/3 p-6">
+                    <h2 id="movieTitle" class="text-4xl font-bold mb-4"></h2>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-700 p-3 rounded-lg">
+                            <p class="text-gray-400 text-sm">Year</p>
+                            <p id="movieYear" class="text-xl font-semibold"></p>
+                        </div>
+                        <div class="bg-gray-700 p-3 rounded-lg">
+                            <p class="text-gray-400 text-sm">Rating</p>
+                            <p id="movieRating" class="text-xl font-semibold text-yellow-400"></p>
+                        </div>
+                        <div class="bg-gray-700 p-3 rounded-lg">
+                            <p class="text-gray-400 text-sm">Runtime</p>
+                            <p id="movieRuntime" class="text-xl font-semibold"></p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm mb-2">Rated</p>
+                        <p id="movieRated" class="text-lg"></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm mb-2">Director</p>
+                        <p id="movieDirector" class="text-lg"></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm mb-2">Cast</p>
+                        <p id="movieActors" class="text-lg"></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm mb-2">Genres</p>
+                        <div id="movieGenres" class="flex flex-wrap gap-2"></div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm mb-2">Awards</p>
+                        <p id="movieTagline" class="text-lg italic text-purple-300"></p>
+                    </div>
+
+                    <div>
+                        <p class="text-gray-400 text-sm mb-2">Plot</p>
+                        <p id="movieOverview" class="text-gray-300 leading-relaxed"></p>
+                    </div>
+
+                    <!-- IMDb Link -->
+                    <div class="mt-6">
+                        <a id="imdbLink" href="#" target="_blank" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-6 py-3 rounded-lg transition">
+                            <i class="fab fa-imdb mr-2"></i>View on IMDb
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+        <div class="loading"></div>
+    </div>
+
+    <script>
+        // Pass movie ID to JavaScript
+        window.MOVIE_ID = '{{ movie_id }}';
+    </script>
+    <script>
+        let movieData = null;
+
+        // Load movie details on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMovieDetails();
+        });
+
+        async function loadMovieDetails() {
+            try {
+                const response = await fetch(`/api/movie/${window.MOVIE_ID}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    alert('Failed to load movie details: ' + data.error);
+                    window.location.href = '/';
+                    return;
+                }
+
+                movieData = data;
+                displayMovieInfo();
+                hideLoading();
+            } catch (error) {
+                console.error('Error loading movie:', error);
+                alert('Failed to load movie. Please try again.');
+                window.location.href = '/';
+            }
+        }
+
+        function displayMovieInfo() {
+            document.getElementById('movieTitle').textContent = movieData.title;
+            document.getElementById('moviePoster').src = movieData.poster_path || 'https://via.placeholder.com/500x750?text=No+Poster';
+            document.getElementById('moviePoster').alt = movieData.title;
+            
+            const year = movieData.release_date || 'N/A';
+            document.getElementById('movieYear').textContent = year;
+            
+            const rating = movieData.vote_average ? movieData.vote_average.toFixed(1) + '/10' : 'N/A';
+            document.getElementById('movieRating').innerHTML = `<i class="fas fa-star mr-1"></i>${rating}`;
+            
+            const runtime = movieData.runtime ? `${movieData.runtime} min` : 'N/A';
+            document.getElementById('movieRuntime').innerHTML = `<i class="fas fa-clock mr-1"></i>${runtime}`;
+            
+            document.getElementById('movieRated').textContent = movieData.rated || 'N/A';
+            document.getElementById('movieDirector').textContent = movieData.director || 'N/A';
+            document.getElementById('movieActors').textContent = movieData.actors || 'N/A';
+            document.getElementById('movieTagline').textContent = movieData.tagline || 'N/A';
+            document.getElementById('movieOverview').textContent = movieData.overview || 'No overview available.';
+            
+            const genresContainer = document.getElementById('movieGenres');
+            if (movieData.genres && movieData.genres.length > 0) {
+                genresContainer.innerHTML = movieData.genres.map(genre => 
+                    `<span class="bg-purple-600 px-3 py-1 rounded-full text-sm">${genre.name}</span>`
+                ).join('');
+            } else {
+                genresContainer.innerHTML = '<span class="text-gray-400">N/A</span>';
+            }
+
+            // IMDb link
+            if (movieData.imdb_id) {
+                document.getElementById('imdbLink').href = `https://www.imdb.com/title/${movieData.imdb_id}/`;
+            }
+
+            document.title = `${movieData.title} - Movie Info`;
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingSpinner').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
