@@ -1,0 +1,10 @@
+flask
+werkzeug
+PyPDF2
+sentence-transformers
+transformers
+torch
+numpy
+pyyaml
+requests
+python-dotenv
