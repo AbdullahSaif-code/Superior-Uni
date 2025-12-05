@@ -1,0 +1,15 @@
+# RAG Configuration File
+
+# Text chunking parameters
+chunk_size: 200  # Number of words per chunk
+chunk_overlap: 40  # Number of words to overlap between chunks
+
+# Retrieval parameters
+top_k_chunks: 2  # Number of most relevant chunks to retrieve
+
+# Answer generation parameters
+answer_length: "medium"  # Options: short, medium, long
+
+# Model paths
+model_embedding_path: "models/all-MiniLM-L6-v2"
+model_generation_path: "models/flan-t5-small"
